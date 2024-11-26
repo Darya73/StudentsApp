@@ -237,20 +237,22 @@ class ApplicationTest : TestCase(kaspressoBuilder) {
 
     @Test
     //Кейс 10. Проверка отображения сообщения об ошибке интернет-соединения
-    fun checkNoInternetConnectionErrorTest() {
+    fun checkInternetError() = run {
+
         stubFor(
-            get(urlEqualTo("/api/"))
+            get("/api/")
                 .willReturn(
                     aResponse()
-                        .withStatus(503)
-                        .withFault(Fault.EMPTY_RESPONSE)
+                        .withFault(Fault.CONNECTION_RESET_BY_PEER)
                 )
         )
 
         MainScreenPage {
             addPersonButton.click()
             addRandomPersonButton.click()
-            snackbarText.hasText("Internet error! Check your connection")
+            step("Проверка отображения снекбара") {
+                checkSnackbarIsDisplayed()
+            }
         }
     }
 

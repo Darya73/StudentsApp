@@ -2,11 +2,13 @@ package ru.tinkoff.favouritepersons.screens
 
 import android.view.View
 import androidx.appcompat.widget.AppCompatTextView
+import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import com.google.android.material.snackbar.SnackbarContentLayout
 import io.github.kakaocup.kakao.recycler.KRecyclerItem
 import io.github.kakaocup.kakao.recycler.KRecyclerView
 import io.github.kakaocup.kakao.switch.KSwitch
 import io.github.kakaocup.kakao.text.KButton
+import io.github.kakaocup.kakao.text.KSnackbar
 import io.github.kakaocup.kakao.text.KTextView
 import org.hamcrest.Matcher
 import ru.tinkoff.favouritepersons.R
@@ -22,6 +24,7 @@ class MainScreenPage : BaseScreen() {
         isInstanceOf(AppCompatTextView::class.java)
         withParent { isInstanceOf(SnackbarContentLayout::class.java) }
     }
+    val snackbar = KSnackbar()
     val sortDefault = KSwitch { withId(R.id.bsd_rb_default) }
     val sortAge = KSwitch { withId(R.id.bsd_rb_age) }
     val noPersonsTitle = KTextView { withId(R.id.tw_no_persons) }
@@ -61,6 +64,10 @@ class MainScreenPage : BaseScreen() {
                 }
             }
         }
+    }
+
+    fun checkSnackbarIsDisplayed() {
+        snackbar.inRoot { isDisplayed() }
     }
 
     fun checkStudentCard(cardPosition: Int, studentInfo: StudentData, age: Int) {

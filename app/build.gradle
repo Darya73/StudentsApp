@@ -6,7 +6,8 @@ plugins {
 
 android {
     namespace 'ru.tinkoff.favouritepersons'
-    compileSdk 33
+    compileSdk 34
+    useLibrary 'org.apache.http.legacy'
 
     testOptions {
         animationsDisabled = true
@@ -22,7 +23,7 @@ android {
     defaultConfig {
         applicationId "ru.tinkoff.favouritepersons"
         minSdk 27
-        targetSdk 33
+        targetSdk 34
         versionCode 1
         versionName "1.0"
 
@@ -96,4 +97,18 @@ dependencies {
 
     androidTestUtil 'androidx.test:orchestrator:1.5.1'
 
+    androidTestImplementation 'org.apache.httpcomponents:httpclient-android:4.3.5.1'
+
+    androidTestImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+
+    androidTestImplementation 'com.kaspersky.android-components:kaspresso:1.5.1'
+    androidTestImplementation 'com.kaspersky.android-components:kaspresso-allure-support:1.5.1'
+
+    androidTestImplementation("com.github.tomakehurst:wiremock:2.23.0") {
+        exclude group: 'org.apache.httpcomponents', module: 'httpclient'
+    }
+
+    androidTestUtil 'androidx.test:orchestrator:1.4.2'
 }
